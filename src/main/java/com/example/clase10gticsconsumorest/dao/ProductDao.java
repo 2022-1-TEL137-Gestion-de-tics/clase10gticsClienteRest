@@ -2,6 +2,8 @@ package com.example.clase10gticsconsumorest.dao;
 
 import com.example.clase10gticsconsumorest.dto.ProductDto;
 import com.example.clase10gticsconsumorest.entity.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,6 +21,16 @@ public class ProductDao {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Product[]> response = restTemplate.getForEntity(
                 "http://localhost:8080/product", Product[].class);
+
+        return Arrays.asList(response.getBody());
+    }
+
+    public List<Product> listarProductosBasicAuth() {
+        RestTemplate restTemplate = new RestTemplateBuilder()
+                .basicAuthentication("oscar.diaz@gmail.com", "oscar.diaz")
+                .build();
+        ResponseEntity<Product[]> response = restTemplate.getForEntity(
+                "http://localhost:8080/api/product", Product[].class);
 
         return Arrays.asList(response.getBody());
     }

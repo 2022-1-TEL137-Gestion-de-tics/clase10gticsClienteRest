@@ -27,7 +27,7 @@ public class ProductController {
 
     @GetMapping({"/list", "", "/"})
     public String listarProductos(Model model) {
-        model.addAttribute("listaProductos", productDao.listarProductos());
+        model.addAttribute("listaProductos", productDao.listarProductosBasicAuth());
         return "product/list";
     }
 
